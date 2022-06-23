@@ -11,16 +11,16 @@
  */
 class Solution {
 public:
-   void inordertraversal(TreeNode *root,vector<int>&v){
+   void f(TreeNode *root,vector<int>&v){
         if(root!=NULL){
-            inordertraversal(root->left,v);
+            f(root->left,v);
             v.push_back(root->val);
-             inordertraversal(root->right,v);
+             f(root->right,v);
         }
     }
     bool isValidBST(TreeNode* root) {
         vector<int>v;
-        inordertraversal(root,v);
+        f(root,v);
         for(int i=0;i<v.size()-1;i++){
             if(v[i]>=v[i+1]){
                 return false;
