@@ -27,7 +27,7 @@ class Solution
 	//value of the BST and the given integer.
     int minDiff(Node *root, int k)
     {
-        int min1;
+        int min1=-2;
        
         if(root!=NULL){
             min1=abs(root->data-k);
