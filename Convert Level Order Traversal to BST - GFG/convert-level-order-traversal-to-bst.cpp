@@ -46,42 +46,29 @@ int main()
 //User function Template for C++
 
 
-
-Node *getNode(int data)
-{
-    // Allocate memory
-    Node *newNode =
-        (Node *)malloc(sizeof(Node));
-
-    // put in the data
-    newNode->data = data;
-    newNode->left = newNode->right = NULL;
-    return newNode;
-}
 //Function to construct the BST from its given level order traversal.
-Node *LevelOrder(Node *root, int data)
+Node* constructBst(int arr[], int n)
 {
-    if (root == NULL)
-    {
-        root = getNode(data);
-        return root;
+    int i = 0;
+    Node *root = new Node(arr[i++]);
+    queue<pair<Node*, pair<int, int>>> q;
+    q.push({root, {INT_MIN, INT_MAX}});
+    while (!q.empty() && i < n) {
+        Node *curr = q.front().first;
+        int mn = q.front().second.first;
+        int mx = q.front().second.second;
+        q.pop();
+        if (arr[i] > mn && arr[i] < curr->data) {
+            curr->left = new Node(arr[i]);
+            q.push({curr->left, {mn, curr->data}});
+            i++;
+        }
+        if (arr[i] > curr->data && arr[i] < mx) {
+            curr->right = new Node(arr[i]);
+            q.push({curr->right, {curr->data, mx}});
+            i++;
+        }
     }
-    if (data <= root->data)
-        root->left = LevelOrder(root->left, data);
-    else
-        root->right = LevelOrder(root->right, data);
     return root;
-}
-
-Node *constructBst(int arr[], int n)
-
-{
-    if (n == 0)
-        return NULL;
-    Node *root = NULL;
-
-    for (int i = 0; i < n; i++)
-        root = LevelOrder(root, arr[i]);
-
-    return root;
+    // Code here
 }
