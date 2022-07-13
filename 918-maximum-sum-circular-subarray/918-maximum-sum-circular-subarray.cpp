@@ -6,7 +6,7 @@ public:
         for (int i = 1; i < nums.size(); i++) {
             sum += nums[i];
         
-            cout<<prev_max<<" "<<max_sum<<endl;
+            // cout<<prev_max<<" "<<max_sum<<endl;
             prev_max = max(prev_max + nums[i], nums[i]);
                 max_sum = max(max_sum, prev_max);
             
