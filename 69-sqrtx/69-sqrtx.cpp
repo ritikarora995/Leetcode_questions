@@ -6,7 +6,7 @@ public:
      int high=x;
         int ans;
         while(low<=high){
-           long long int mid=(low+high)/2;
+            long int mid=(low+high)/2;
             // cout<<mid<<endl;
             if(mid*mid==x) return mid;
             else if(mid*mid>x){
