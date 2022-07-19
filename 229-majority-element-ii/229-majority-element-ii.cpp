@@ -18,7 +18,7 @@ public:
             else
                 c1--,c2--;
         }
-        cout<<e1<<" "<<e2<<endl;
+        // cout<<e1<<" "<<e2<<endl;
         
         //Validating them in the array
         c1=0,c2=0;
