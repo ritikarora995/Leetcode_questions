@@ -1,43 +1,40 @@
 class Solution {
 public:
-    vector<int> majorityElement(vector<int>& nums) {
-           int e1=-1,e2=-1;
-        int c1=0,c2=0;
-        
-        //Finding the elements using Boyer Moore Algorithm
-        for(int i=0; i<nums.size(); i++)
-        {
-            if(nums[i]==e1)
-                c1++;
-            else if(nums[i]==e2)
-                c2++;
-            else if(c1==0)
-                e1=nums[i],c1=1;
-            else if(c2==0)
-                e2=nums[i],c2=1;
-            else
-                c1--,c2--;
+    vector<int> majorityElement(vector<int>& a) {
+        vector<int>v;
+        // 1 1 5 1 1 2 5 2 7 7
+        int n=a.size();
+        int cand1=-1;
+        int cand2=-1;        
+        int cnt1=0;
+        int cnt2=0;
+        for(int i=0;i<n;i++){
+            if(a[i]==cand1) cnt1++;
+            else if(a[i]==cand2) cnt2++;
+            else if (cnt1==0){
+                cand1=a[i];
+                cnt1++;
+            }
+            else if(cnt2==0){
+                 cand2=a[i];
+                cnt2++;
+            }
+            else{
+                cnt1--;
+                cnt2--;
+            }
         }
-        // cout<<e1<<" "<<e2<<endl;
-        
-        //Validating them in the array
-        c1=0,c2=0;
-        vector<int> res;
-        for(int i=0; i<nums.size(); i++)
-        {
-            if(nums[i]==e1)
-                c1++;
-            if(nums[i]==e2)
-                c2++;
+        cnt1=0,cnt2=0;
+        for(int i=0;i<n;i++){
+            if(cand1==a[i]){
+                cnt1++;
+            }
+            else if(cand2==a[i]){
+                cnt2++;
+            }
         }
-        
-        if(c1>nums.size()/3)
-            res.push_back(e1);            
-        if(c2>nums.size()/3)
-            res.push_back(e2);
-        if(e1==e2)
-            res.pop_back();
-        
-        return res;
+        if(cnt1>floor(n/3)) v.push_back(cand1);
+        if(cnt2>floor(n/3)) v.push_back(cand2);
+        return v;
     }
 };
