@@ -1,26 +1,23 @@
 class Solution {
 public:
-     bool subsetsum(vector<int>&arr,vector<vector<int>>&dp, int sum,int target,int i){
-        // cout<<sum<<endl;
-        if(sum>target){
-            return 0;
+     bool isSubsetSum(vector<int>arr, int sum){
+        // code here 
+        int n=arr.size();
+        vector<vector<int>>dp(n+1,vector<int>(sum+1,-1));
+       for(int i=0;i<=n;i++) dp[i][0]=1;
+       for(int j=0;j<=sum;j++) dp[0][j]=0;
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+                if(arr[i-1]>j){
+                    dp[i][j]=dp[i-1][j];
+                }
+                else{
+                    dp[i][j]=dp[i-1][j] || dp[i-1][j-arr[i-1]];
+                }
+            }
         }
-        else if(sum==target){
-            return 1;
-        }
-       
-        if(i==arr.size()){
-            return 0;
-        }
-        if(dp[i][sum]!=-1){
-            return dp[i][sum];
-        }
-        if(arr[i]>target){
-            return dp[i][sum]=subsetsum(arr,dp,sum,target,i+1);
-        }
-       
-        // cout<<sum<<endl;
-        return dp[i][sum]=subsetsum(arr,dp,sum+arr[i],target,i+1) || subsetsum(arr,dp,sum,target,i+1);
+        return dp[n][sum];
     }
     bool canPartition(vector<int>& nums) {
         int n=nums.size();
@@ -30,8 +27,8 @@ public:
         }
         if(sum%2==0){
           
-        vector<vector<int>>dp(n+1,vector<int>(sum+1,-1));
-        return subsetsum(nums,dp,0,sum/2,0);
+        // vector<vector<int>>dp(n+1,vector<int>(sum+1,-1));
+        return isSubsetSum(nums,sum/2);
         }
         return 0;
        
