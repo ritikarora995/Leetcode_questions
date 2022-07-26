@@ -1,32 +1,30 @@
 class Solution {
 public:
-    int mincoins(vector<int>&a,int n,int amt,vector<vector<int>>&dp)
-    {
-         
-        if(n==0 || amt==0){
-           if(amt==0)
-             {
-               return 0;
-           }
-            else{
-                return 1e7;
-            }
-     }
-       if(dp[n][amt]!=-1) return dp[n][amt];
-        if(a[n-1]<=amt)
+    int coinChange(vector<int>& a, int amount) {
+        int n=a.size();
+      vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
+        for(int i=0;i<=n;i++)
         {
-            return dp[n][amt]=min(1+mincoins(a,n,amt-a[n-1],dp),mincoins(a,n-1,amt,dp));
-            
+            for(int j=0;j<=amount;j++)
+            {
+                if(j==0){
+                    dp[i][j]=0;
+                }
+                else if(i==0)
+                {
+                 dp[i][j]=1e5;
+                }
+                
+                else if(a[i-1]<=j)
+                {
+                dp[i][j]=min(0+dp[i-1][j],1+dp[i][j-a[i-1]]);
+                }
+               else{
+                  dp[i][j]=0+dp[i-1][j];
+                 }
+                        
+            }
         }
-        else{
-           return dp[n][amt]= mincoins(a,n-1,amt,dp);
-        }
-    }
-    int coinChange(vector<int>& coins, int amount) 
-    {
-        int n=coins.size();
-        vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
-        int ans=mincoins(coins,coins.size(),amount,dp);
-       return  ans==1e7?-1:ans;
+            return dp[n][amount]==1e5?-1:dp[n][amount];
     }
 };
