@@ -1,27 +1,26 @@
 class Solution {
 public:
-    // 1 2 4
-    //     1 1 3
-    //     1 0 2
-    //     0 1 2
-    //     0 0 1
     int fillCups(vector<int>& a) {
-       sort(a.begin(),a.end());
+        priority_queue<int>pq;
+        for(int i=0;i<a.size();i++){
+            pq.push(a[i]);
+        }
         int c=0;
-      while(a[2]!=0){
-          
-         
-          if(a[1]>0){
-              a[2]--;
-              a[1]--;
-              c++;
-          }
-          else{
-              a[2]--;
-              c++;
-          }
-     sort(a.begin(),a.end());
+      while(pq.top()!=0 && pq.size()>1){
+         int a=pq.top()-1;
+          pq.pop();
+          int b=pq.top()-1;
+          pq.pop();
+          c++;
+          if(a>0) pq.push(a);
+          if(b>0) pq.push(b);
+
       }
+        if(pq.size()) c+=pq.top();
         return c;
     }
 };
+
+    
+    
+    
