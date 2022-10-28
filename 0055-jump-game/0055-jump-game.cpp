@@ -7,7 +7,7 @@ int n=A.size();
         if(i+A[i]>=last)last=i;
     }
         // cout<<last<<endl;
-    return last<=0;
+    return last==0;
 }
 
 };
