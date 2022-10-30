@@ -16,13 +16,13 @@ public:
 			vector<int> shuffled = original;
 			
 			int leftSize = n;
-			for(int i = n-1; i>=0; i--) {
+			for(int i =0; i<n; i++) {
 				//draw from the bag
 				int j = rand()%leftSize;
 				
-				//put this element at current position
+                //put this element at current position
 				//and put the original element in the bag
-				swap(shuffled[i], shuffled[j]);
+		        swap(shuffled[i], shuffled[j]);
 			
 			}
 			return shuffled;
